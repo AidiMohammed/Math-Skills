@@ -1,0 +1,124 @@
+<DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/bootstrap.min.css">
+        <link rel="stylesheet" href="/style.css">
+        <title>math-skills</title>
+    </head>
+    <body>
+        <div class="container mt-2">
+            <div style="display: flex;justify-items: left;align-content: center;justify-content: space-between;height: 45px;">
+                <div>
+                    <a href="http://zone01oujda.ma">
+                        <img style="height: 45px;" src="https://zone01oujda.ma/_next/image?url=%2Flogolight.png&w=1080&q=75" alt="logo zone o1 oujda">
+                    </a>
+                </div>
+                <div style="text-align: center;">
+                    <a href="https://github.com/AidiMohammed">
+                        <img style="width: 45px;border-radius: 50%;" src="https://avatars.githubusercontent.com/u/84294692?v=4" alt="Mohammed ">
+                    </a>
+                    <p style="font-size: small;margin-top: 4px">Mohammed aidi</p>
+                </div>
+            </div>
+            <h2 style="text-align: center;">Math-Skills</h2>
+
+            <div style="text-align: justify;">
+                <label for="formFile" class="form-label mt-4">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            Choisissez le fichier à tester
+                        </font>
+                    </font>
+                </label>
+                <input class="form-control" type="file" id="fileInput">
+                <div class="invalid-feedback" style="text-align: end;"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Désolé, Mais vous devez choisir un fichier de type txt</font></font></div>
+            </div>
+
+            <!-- button start calcul -->
+            <div style="d-grid gap-2">
+                <button class="btn btn-lg btn-primary mt-2" style="width: -webkit-fill-available; " disabled type="button" id="readFile">
+                    <font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            Commencer le calcul
+                        </font>
+                    </font>
+                </button>
+            </div>
+            
+            <!-- mode calcul -->
+            <div style="display: none;" id="modeCalcul">
+                <div class="btn-group mt-3" role="group" aria-label="Groupe de boutons avec liste déroulante imbriquée">
+                    <button type="button" class="btn btn-info"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Mode calcule</font></font></button>
+                    <div class="btn-group" role="group">
+                        <button id="btnGroupDrop3" type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true"></button>
+                        <div class="dropdown-menu" aria-labelledby="btnGroupDrop3" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 54.5px, 0px);" data-popper-placement="bottom-start">
+                            <font id="mode-all" class="dropdown-item" style="vertical-align: inherit; cursor: pointer;"><font style="vertical-align: inherit;">All</font></font>
+                            <font id="mode-AVG" class="dropdown-item" style="vertical-align: inherit; cursor: pointer;"><font style="vertical-align: inherit;">Average</font></font>
+                            <font id="mode-MED" class="dropdown-item" style="vertical-align: inherit; cursor: pointer;"><font style="vertical-align: inherit;">Median</font></font>
+                            <font id="mode-VAR" class="dropdown-item" style="vertical-align: inherit; cursor: pointer;"><font style="vertical-align: inherit;">Variance</font></font>
+                            <font id="mode-STD" class="dropdown-item" style="vertical-align: inherit; cursor: pointer;"><font style="vertical-align: inherit;">Standard Deviation</font></font>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- result -->
+            <ul class="list-group mt-3 " style="display: none; width: 50%" id="result">
+                <div style="display: none">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Average
+                        </font></font><span class="badge bg-primary rounded-pill"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="value-AVG">0</font></font></span>
+                    </li>
+                </div>
+
+                <div style="display: none;">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Median
+                        </font></font><span class="badge bg-primary rounded-pill"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="value-MED">0</font></font></span>
+                    </li>
+                </div>
+
+                <div style="display: none;">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Variance
+                        </font></font><span class="badge bg-primary rounded-pill"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="value-VAR">0</font></font></span>
+                    </li>
+                </div>
+                <div style="display: none;">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                        Standard Deviation
+                        </font></font><span class="badge bg-primary rounded-pill"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;" id="value-STD">0</font></font></span>
+                    </li>
+                </div>
+            </ul>
+
+            <!-- Alert -->
+            <div class="alert alert-dismissible alert-primary mt-3" style="display: none" id="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" id="btn-close-alert"></button>
+                <h4 class="alert-heading"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Avertissement!</font></font></h4>
+                <p class="mb-0"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> Votre fichier est endommagé. Merci de le vérifier et de le réessayer </font>
+                </font><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> .</font></font></p>
+            </div>     
+
+            <!-- Toasts -->
+            <div id="toast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                <strong class="me-auto"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Information</font></font></strong>
+                <small><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"></font></font></small>
+                <button  id="btn-close" type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Fermer">
+                    <span aria-hidden="true"></span>
+                </button>
+                </div>
+                <div class="toast-body"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                    vous avez choisi le mode <strong id="message-toast"></strong>
+                </font></font></div>
+            </div>
+
+        </div>
+        
+        <script src="/app.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    </body>
+</html>
