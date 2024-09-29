@@ -24,7 +24,7 @@ const modeCalcul = document.getElementById("modeCalcul")
 var idTimeOut = 0
 
 closeToast.addEventListener('click', () => {
-    toast.style.display = "none"
+    hiddenToast()
 })
 
 modeALL.addEventListener('click', () => 
@@ -39,7 +39,7 @@ modeALL.addEventListener('click', () =>
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        toast.style.display = "none"
+        hiddenToast()
         idTimeOut = 0
     },3000)
 })
@@ -59,7 +59,7 @@ modeAVG.addEventListener('click', () =>
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        toast.style.display = "none"
+        hiddenToast()
         idTimeOut = 0
     },3000)
 })
@@ -79,7 +79,7 @@ modeMED.addEventListener('click', () =>
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        toast.style.display = "none"
+        hiddenToast()
         idTimeOut = 0
     },3000)
 })
@@ -99,7 +99,7 @@ modeVAR.addEventListener('click', () =>
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        toast.style.display = "none"
+        hiddenToast()
         idTimeOut = O
     },3000)
 })
@@ -120,7 +120,7 @@ modeSTD.addEventListener('click', () =>
     
 
     idTimeOut = setTimeout(() => {
-        toast.style.display = "none"
+        hiddenToast()
         idTimeOut = 0
     },3000)
 })
@@ -223,4 +223,25 @@ function calculVAR(elements,AVG){
     })
     return sum/elements.length
     
+}
+
+toast.addEventListener('mouseenter',(e) => {
+    if (idTimeOut != 0)
+        clearTimeout(idTimeOut)
+    
+})
+
+toast.addEventListener('mouseleave', (e) => {
+    setTimeout(() => {
+        hiddenToast()
+    },3000)
+})
+
+function hiddenToast(){
+   toast.classList.add("toast-move-left")
+   setTimeout(() =>{
+    toast.style.display ="none"
+    toast.classList.remove("hidden-toast")
+    toast.classList.remove("toast-move-left")
+   },1800)
 }

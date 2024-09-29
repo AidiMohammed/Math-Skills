@@ -13,13 +13,30 @@
     position: relative;
 }
 
+.toast-move-left {
+  animation: move-left 2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 @keyframes move-right {
     from {
       transform: translateX(100%);
+      opacity: 0;
     }
     to {
       transform: translateX(0);
+      opacity: 100%;
     }
+}
+
+@keyframes move-left {
+  from {
+    transform: translateX(0);
+    opacity: 100%;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
 }
 
 @keyframes hidden- {
