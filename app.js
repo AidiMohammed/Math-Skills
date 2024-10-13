@@ -15,16 +15,18 @@ const modeMED = document.getElementById("mode-MED")
 const modeVAR = document.getElementById("mode-VAR")
 const modeSTD = document.getElementById("mode-STD")
 
-const toast = document.getElementById("toast")
-const closeToast = document.getElementById("btn-close")
-const messageToast = document.getElementById("message-toast")
+const notif = document.getElementById("notif")
+const closenotif = document.getElementById("btn-close")
+const messagenotif = document.getElementById("message-notif")
 
 const modeCalcul = document.getElementById("modeCalcul")
 
 var idTimeOut = 0
 
-closeToast.addEventListener('click', () => {
-    hiddenToast()
+closenotif.addEventListener('click', () => {
+    notif.style.display ="none"
+    notif.classList.remove("hidden-notif")
+    notif.classList.remove("notif-move-left")
 })
 
 modeALL.addEventListener('click', () => 
@@ -32,14 +34,14 @@ modeALL.addEventListener('click', () =>
     Array.from(result.children).forEach((element,index) => {
         element.style.display = "block"
     })
-    toast.style.display = "block"
-    messageToast.textContent = "ALL"
+    notif.style.display = "block"
+    messagenotif.textContent = "ALL"
 
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
         idTimeOut = 0
     },3000)
 })
@@ -52,14 +54,14 @@ modeAVG.addEventListener('click', () =>
         else
             element.style.display = "none"
     })
-    toast.style.display = "block"
-    messageToast.textContent = "Average"
+    notif.style.display = "block"
+    messagenotif.textContent = "Average"
 
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
         idTimeOut = 0
     },3000)
 })
@@ -72,14 +74,14 @@ modeMED.addEventListener('click', () =>
         else
             element.style.display = "none"
     })
-    toast.style.display = "block"
-    messageToast.textContent = "Median"
+    notif.style.display = "block"
+    messagenotif.textContent = "Median"
 
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
         idTimeOut = 0
     },3000)
 })
@@ -92,14 +94,14 @@ modeVAR.addEventListener('click', () =>
         else
             element.style.display = "none"
     })
-    toast.style.display = "block"
-    messageToast.textContent = "Variance"
+    notif.style.display = "block"
+    messagenotif.textContent = "Variance"
 
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
 
     idTimeOut = setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
         idTimeOut = O
     },3000)
 })
@@ -112,15 +114,15 @@ modeSTD.addEventListener('click', () =>
         else
             element.style.display = "none"
     })
-    toast.style.display = "block"
-    messageToast.textContent = "Standard Deviation"
+    notif.style.display = "block"
+    messagenotif.textContent = "Standard Deviation"
 
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
     
 
     idTimeOut = setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
         idTimeOut = 0
     },3000)
 })
@@ -132,21 +134,40 @@ btnRead.addEventListener('click',() =>
     if (myFile)
     {
         const readerFile = new FileReader();
-        var AVG = null;
+        var avg = null;
         var median = 0;
         var variance = 0;
 
         readerFile.onload = (e) => 
         {
             const elements = e.target.result.split('\n')
-            AVG = Math.round(calculAVG(elements))
-            median = Math.round(calculMedian(elements))
-            variance = Math.round(calculVAR(elements,Math.round(AVG)))
             
-            //console.log("VARIACE : ",variance)
-            //console.log("STD : ",Math.sqrt(variance))
+            const numbers = elements.filter(number => number !== "")//Clean elements
 
-            valAVG.textContent = AVG
+            numbers.forEach(number => {
+                for (let index = 0; index < number.length;index++){
+                    if(isNaN(number[index])){
+                        alertDiv.style.display = "block"
+                        btnRead.disabled = true
+                        result.style.display = "none"
+                        return 0
+                    }
+                }
+            })
+
+            if(numbers.length == 0)
+            {
+                alertDiv.style.display = "block"
+                btnRead.disabled = true
+                result.style.display = "none"
+                return 0
+            }
+
+            avg = Math.round(calculAVG(numbers))
+            median = Math.round(calculMedian(numbers))
+            variance = Math.round(calculVAR(numbers,Math.round(avg)))
+        
+            valAVG.textContent = avg
             valMED.textContent = median
             valVAR.textContent = variance
             valVAR.textContent = variance
@@ -193,6 +214,7 @@ function calculAVG(elements)
             result.style.display = "none"
             throw new Error("Le tableau contient des éléments non numériques");
         }
+
         sum += parseInt(element)
     });
     return sum / elements.length
@@ -201,10 +223,8 @@ function calculAVG(elements)
 function calculMedian(elements)
 {
     elements.sort((a,b) => a-b)
-    console.log(elements)
     if(elements.length % 2 == 1)
     {
-        console.log("== 1")
         return elements[Math.round((elements.length/2)-1)]
     }
     else if (elements.length % 2 == 0)
@@ -225,23 +245,23 @@ function calculVAR(elements,AVG){
     
 }
 
-toast.addEventListener('mouseenter',(e) => {
+notif.addEventListener('mouseenter',(e) => {
     if (idTimeOut != 0)
         clearTimeout(idTimeOut)
     
 })
 
-toast.addEventListener('mouseleave', (e) => {
+notif.addEventListener('mouseleave', (e) => {
     setTimeout(() => {
-        hiddenToast()
+        hiddennotif()
     },3000)
 })
 
-function hiddenToast(){
-   toast.classList.add("toast-move-left")
+function hiddennotif(){
+   notif.classList.add("notif-move-left")
    setTimeout(() =>{
-    toast.style.display ="none"
-    toast.classList.remove("hidden-toast")
-    toast.classList.remove("toast-move-left")
+    notif.style.display ="none"
+    notif.classList.remove("hidden-notif")
+    notif.classList.remove("notif-move-left")
    },1800)
 }
